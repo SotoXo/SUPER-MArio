@@ -20,6 +20,7 @@ public class LevelRuntime : MonoBehaviour
 
     private void Update()
     {
+        if (player != null) player.swimming = underwater && player.transform.position.x < waterExitX;
         if (player != null && stageCamera != null)
             stageCamera.backgroundColor = player.transform.position.x >= surfaceStartX ? new Color32(92, 148, 252, 255) :
                 underwater ? new Color32(32, 56, 236, 255) : Color.black;
@@ -46,6 +47,7 @@ public class LevelRuntime : MonoBehaviour
                 $"WORLD {game.world}-{game.stage} COMPLETE\n\nWORLD {game.pendingLevel} — COMING SOON\n\nENTER TO PLAY AGAIN", complete);
         }
         else GUI.Label(new Rect(18, Screen.height - 30, Screen.width - 36, 28),
+            underwater && player != null && player.swimming ? "ARROWS / A,D: MOVE     SPACE: SWIM     D: ENTER EXIT PIPE" :
             "ARROWS / A,D: MOVE     SPACE: JUMP     S: ENTER PIPE", hud);
     }
 }
